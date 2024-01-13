@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FlickrBrowser</string>
+    <string name="title_activity_results">ResultsActivity</string>
+    <string name="title_activity_requester_model.kt">RequesterModel.kt</string>
+    <string name="title_activity_requeter_model.kt">RequeterModel.kt</string>
+    <string name="title_activity_requester_model">RequesterModel</string>
+    <string name="title_activity_requester_view">RequesterView</string>
+    <string name="title_activity_requester_view_model.kt">RequesterViewModel.kt</string>
+    <string name="title_activity_requester_view_model">RequesterViewModel</string>
+    <string name="title_activity_image">Image</string>
+    <string name="title_activity_images_list">ImagesList</string>
 </resources>

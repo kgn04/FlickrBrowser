@@ -11,11 +11,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlickrBrowser"
-        tools:targetApi="31">
+        tools:targetApi="34">
+        <activity
+            android:name=".RequesterView"
+            android:exported="false"
+            android:label="@string/title_activity_requester_view"
+            android:theme="@style/Theme.FlickrBrowser" />
+        <activity
+            android:name=".ImagesList"
+            android:exported="false"
+            android:label="@string/title_activity_images_list"
+            android:theme="@style/Theme.FlickrBrowser" />
+        <activity
+            android:name=".Image"
+            android:exported="false"
+            android:label="@string/title_activity_image"
+            android:theme="@style/Theme.FlickrBrowser" />
+        <activity
+            android:name=".RequesterModel"
+            android:exported="false"
+            android:label="@string/title_activity_requester_model"
+            android:theme="@style/Theme.FlickrBrowser" />
+        <activity
+            android:name=".ResultsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_results"
+            android:theme="@style/Theme.FlickrBrowser" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.FlickrBrowser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
