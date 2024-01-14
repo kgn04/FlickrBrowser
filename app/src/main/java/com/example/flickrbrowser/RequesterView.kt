@@ -114,34 +114,6 @@ fun TagsList() {
     }
 }
 
-@Composable
-fun LanguageDropdownMenu() {
-    val languages = listOf<String>("Any language", "English", "German", "Spanish", "French",
-        "Italian", "Korean", "Portugese", "Chinese")
-    var chosenLanguage by remember {
-        mutableStateOf("Any language")
-    }
-    var expanded by remember { mutableStateOf(false) }
-    Box {
-        OutlinedButton(
-            onClick = { expanded = true }) {
-            Text(text = chosenLanguage)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.align(Alignment.BottomCenter)
-        ) {
-            languages.forEach {
-                DropdownMenuItem(
-                    text = { Text(it) },
-                    onClick = { chosenLanguage = it
-                    chosenLang = it }
-                )
-            }
-        }
-    }
-}
 
 @Composable
 fun Browser() {
@@ -188,8 +160,6 @@ fun Browser() {
             )
         }
         Spacer(modifier = Modifier.height(30.dp))
-        LanguageDropdownMenu()
-        Spacer(modifier = Modifier.height(20.dp))
         val mContext = LocalContext.current
         Row {
             Spacer(modifier = Modifier.width(150.dp))

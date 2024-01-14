@@ -17,12 +17,12 @@ class Requester(
     private val lang: String
 ) {
 
+
     fun getResult(): String {
         val endpoint = "https://www.flickr.com/services/feeds/photos_public.gne"
-        val params = mapOf(
+        val params = mutableMapOf<String, String?>(
             "tags" to tags,
-            "tagmode" to tagmode,
-            //"lang" to lang
+            "tagmode" to tagmode
         )
 
         val url = StringBuilder(endpoint)
