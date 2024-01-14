@@ -9,4 +9,6 @@
     <string name="title_activity_requester_view_model">RequesterViewModel</string>
     <string name="title_activity_image">Image</string>
     <string name="title_activity_images_list">ImagesList</string>
+    <string name="title_activity_tags_view">TagsView</string>
+    <string name="title_activity_browser_view">BrowserView</string>
 </resources>

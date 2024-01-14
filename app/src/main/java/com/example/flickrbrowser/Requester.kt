@@ -14,16 +14,17 @@ import javax.xml.parsers.DocumentBuilderFactory
 class Requester(
     private val tags: String,
     private val tagmode: String,
-    private val lang: String
 ) {
 
 
-    fun getResult(): String {
+    private fun getResult(): String {
         val endpoint = "https://www.flickr.com/services/feeds/photos_public.gne"
         val params = mutableMapOf<String, String?>(
-            "tags" to tags,
             "tagmode" to tagmode
         )
+        if (tags != "")
+            params["tags"] = tags
+
 
         val url = StringBuilder(endpoint)
         url.append("?")
