@@ -60,6 +60,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material3:material3:1.2.0-beta02")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("com.github.kittinunf.fuel:fuel:3.0.0-alpha1")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))

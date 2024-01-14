@@ -1,5 +1,6 @@
 package com.example.flickrbrowser
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -49,7 +50,6 @@ class RequesterView : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FlickrBrowserTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -60,6 +60,10 @@ class RequesterView : ComponentActivity() {
         }
     }
 }
+
+var chosenTags = listOf<String>()
+var chosenTagMode = "all"
+var chosenLang = "Any language"
 
 
 
@@ -78,13 +82,15 @@ fun TagsList() {
             )
             Spacer(modifier = Modifier.width(20.dp))
             IconButton(
-                onClick = { tags = tags.toMutableList().apply { remove(tag) } }
+                onClick = { tags = tags.toMutableList().apply { remove(tag) }
+                    chosenTags = tags
+                }
             ) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Remove")
             }
         }
     }
-    if (tags.size < 6) {
+    if (tags.size < 5) {
         var last_tag by remember {mutableStateOf("")}
         Row {
             OutlinedTextField(
@@ -96,9 +102,10 @@ fun TagsList() {
             )
             Spacer(modifier = Modifier.width(20.dp))
             IconButton(
-                onClick = { if(last_tag != "") {
+                onClick = { if(last_tag != "" && !tags.contains(last_tag)) {
                     tags.add(last_tag)
                     last_tag = ""
+                    chosenTags = tags
                 } }
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Remove")
@@ -128,7 +135,8 @@ fun LanguageDropdownMenu() {
             languages.forEach {
                 DropdownMenuItem(
                     text = { Text(it) },
-                    onClick = { chosenLanguage = it }
+                    onClick = { chosenLanguage = it
+                    chosenLang = it }
                 )
             }
         }
@@ -168,6 +176,7 @@ fun Browser() {
                 checked = checked,
                 onCheckedChange = {
                     checked = it
+                    chosenTagMode = if (checked) "all" else "any"
                 }
             )
             Spacer(modifier = Modifier.width(50.dp))
@@ -181,10 +190,15 @@ fun Browser() {
         Spacer(modifier = Modifier.height(30.dp))
         LanguageDropdownMenu()
         Spacer(modifier = Modifier.height(20.dp))
+        val mContext = LocalContext.current
         Row {
             Spacer(modifier = Modifier.width(150.dp))
             Button(
-                onClick = {  }) {
+                onClick = { val intent = Intent(mContext, ResultsActivity::class.java)
+                    intent.putExtra("tags" , chosenTags.joinToString(separator = ","))
+                    intent.putExtra("tagmode" , chosenTagMode)
+                    intent.putExtra("language", chosenLang)
+                    mContext.startActivity(intent) }) {
                 Text("Let's find it!")
             }
         }
