@@ -1,6 +1,7 @@
 package com.example.flickrbrowser
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -34,6 +36,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,19 +62,48 @@ class RequesterView : ComponentActivity() {
 }
 
 
+
 @Composable
-fun TagRow(id: Int) {
-    var tag by remember { mutableStateOf("") }
-    OutlinedTextField(
-        value = tag,
-        onValueChange = { tag = it },
-        label = { Text("tag $id") },
-    )
-    Spacer(modifier = Modifier.width(20.dp))
-    IconButton(
-        onClick = {  }
-    ) {
-        Icon(imageVector = Icons.Default.Add, contentDescription = "Remove")
+fun TagsList() {
+    var tags by remember { mutableStateOf(mutableListOf<String>()) }
+    tags.forEachIndexed { id, tag ->
+        Row {
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f),
+                enabled = false,
+                value = tag,
+                onValueChange = {  },
+                label = { Text("Tag ${id + 1}") },
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            IconButton(
+                onClick = { tags = tags.toMutableList().apply { remove(tag) } }
+            ) {
+                Icon(imageVector = Icons.Default.Delete, contentDescription = "Remove")
+            }
+        }
+    }
+    if (tags.size < 6) {
+        var last_tag by remember {mutableStateOf("")}
+        Row {
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f),
+                value = last_tag,
+                onValueChange = { last_tag = it },
+                label = { Text("Tag ${tags.size + 1}") }
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            IconButton(
+                onClick = { if(last_tag != "") {
+                    tags.add(last_tag)
+                    last_tag = ""
+                } }
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Remove")
+            }
+        }
     }
 }
 
@@ -103,7 +135,6 @@ fun LanguageDropdownMenu() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Browser() {
     Column (modifier = Modifier
@@ -115,7 +146,7 @@ fun Browser() {
             fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.height(20.dp))
-        TagRow(1)
+        TagsList()
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Should results contain at least one or all of the tags?",
