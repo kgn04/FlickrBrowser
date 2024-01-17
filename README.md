@@ -4,4 +4,8 @@ Android app with Jetpack Compose Kotlin Frontend and Java Backend for searching 
 
 ## Screenshots
 
-![main_page](screenshots/main_page.png) ![result](screenshots/result.png)
+  Main Page                              |  Result page
+:---------------------------------------:|:---------------------------------------:
+  ![main_page](screenshots/main_page.png)|  ![result](screenshots/result.png)
+
+
